@@ -71,6 +71,98 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Uniswap-v2部署工作记录（一）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/01/30/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-date">
+  <time class="dt-published" datetime="2023-01-30T06:36:59.000Z" itemprop="datePublished">2023-01-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/01/30/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89/">Uniswap-v2部署工作记录（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>1.23-1.30</p>
+<p>目前仍然是环境调试阶段呢，心累QAQ</p>
+<hr>
+<p>这几天工作总结：磕磕绊绊地找教程，无止尽地调环境，环境的bug怎么看不到头啊……</p>
+<hr>
+<h3 id="找教程历程"><a href="#找教程历程" class="headerlink" title="找教程历程"></a>找教程历程</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/212397361">https://zhuanlan.zhihu.com/p/212397361</a> 手把手叫教你部署uniswap</p>
+<p> 通过助记词生成新账户<br> b站视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1VV411o7Dt/">https://www.bilibili.com/video/BV1VV411o7Dt/</a><br> yarn无法使用<br> 解决：1、把nodejs下的global放入环境变量path中<br> 2、设置权限 <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_55333190/article/details/122492166">https://blog.csdn.net/weixin_55333190/article/details/122492166</a></p>
+<p> 跟着视频 新建文件夹D:\实验室\myblockchain</p>
+<p> 开始看教程！（flag：把这个教程跟完）（除非不可抗因素：卡着了）<br> <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ph411e7bT">https://www.bilibili.com/video/BV1ph411e7bT</a><br> 记住这个网址：cn.etherscan.com-试图打开-失败了xs</p>
+<p> 上面的教程用remix，和学长交流后决定不用remix，而改用truffle。又要重新开始找教程了呜呜</p>
+<hr>
+<p> 1.28晚：折腾一晚上没在b站找到用truffle搭建的，在博客园找到了一个，不过人家似乎经历了一些自己的整合，但是源码已经找不到了（sigh）同时以太坊网站和其他外网都上不去，梯子时不时提示什么config error</p>
+<p> 1.29：继续找教程，找到了hardrat（？）和foundry的，就是没找到truffle的视频教程；解决了翻墙问题，最后的最后竟然是因为梯子没有升级到最新版本（一口老血喷了出来）</p>
+<p> 决定先跟着这个教程：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000040401731">https://segmentfault.com/a/1190000040401731</a> 把truffle当成一个框架！</p>
+<hr>
+<h3 id="调试环境"><a href="#调试环境" class="headerlink" title="调试环境"></a>调试环境</h3><p> yarn编译第一步就出错了（令人窒息的满屏error</p>
+<p> <img src="/2023/01/30/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89/1.png"></p>
+<p> 一个类似的但不是sha的：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34373197/article/details/122809786">https://blog.csdn.net/qq_34373197/article/details/122809786</a><br> 建议是node重装成比较低的版本（倒吸一口凉气）（planB，感觉不太好行动）</p>
+<p> 另一个sha的，但还没看到解决方案，全是same的英文网站：<a target="_blank" rel="noopener" href="https://github.com/phusion/node-sha3/issues/32">https://github.com/phusion/node-sha3/issues/32</a></p>
+<p> <strong>我先干一件事情：把梯子关掉重试一下。感觉哪怕没有用也得保持梯子关掉（至少编译配环境过程中），不然问题有点多</strong><br> error依旧！那没事了</p>
+<p><img src="/2023/01/30/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89/2.png"></p>
+<p> 别人的错误信息：<br><img src="/2023/01/30/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89/3.png"></p>
+<p> 我的对应信息：</p>
+<p><img src="/2023/01/30/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89/4.png"><br> 那可能就不是node的版本问题了<br> 查一下vs</p>
+<hr>
+<h4 id="和VS杠上了"><a href="#和VS杠上了" class="headerlink" title="和VS杠上了"></a>和VS杠上了</h4><p> 有个解决方法是安装Vs。</p>
+<p> 另一个办法是装拓展。<br> <strong>先试一下装拓展：</strong></p>
+<p> <img src="/2023/01/30/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89/5.png"><br> 卡住了（</p>
+<p> 经过了一番兵荒马乱居然装上了，但怀疑有隐患。</p>
+<p><img src="/2023/01/30/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89/6.png"></p>
+<p> <strong><strong>血的教训：1、文件名最好用英文</strong><br> 2、因为装拓展而多出来的文件夹不要删除，否则会有这样的灵异现象：</strong></p>
+<p><img src="/2023/01/30/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89/7.png"><br> 事实是C:\Program Files (x86)\Microsoft Visual Studio这个文件夹我动手把它删了。。。看到它还找到了不禁有点毛骨悚然</p>
+<p> 最终解决问题参考的网页：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_48391379/article/details/117187522">https://blog.csdn.net/weixin_48391379/article/details/117187522</a><br> install卡住后如果crl+c退出后，最好remove一下，不然感觉不太干净的样子。</p>
+<p> yarn的编译还是老问题：</p>
+<p> <img src="/2023/01/30/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89/8.png"></p>
+<p> 借鉴：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lc315yuhuofei/article/details/106015745">https://blog.csdn.net/lc315yuhuofei/article/details/106015745</a> 的更新gyp<br> 结果：没解决</p>
+<p> 想试一下这个指令：<br> npm install –global –production windows-build-tools –vs2017<br> 结果：没能解决</p>
+<p> 尝试用cnpm i -g windows-build-tools<br>       卡在python2.7…后<br>       解决借鉴：<a target="_blank" rel="noopener" href="https://blog.csdn.net/oqzuser1234asd/article/details/116169889">https://blog.csdn.net/oqzuser1234asd/article/details/116169889</a> 在temp文件添加文件以及指令</p>
+<p> 但是yarn的这个错误还是没解决。。。<br> <strong>gyp ERR! UNCAUGHT EXCEPTION</strong><br> <strong>gyp ERR! stack Error: spawn C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MSBuild.exe ENOENT</strong></p>
+<p> 尝试用cnpm i -g windows-build-tools</p>
+<p>虽然没有卡住</p>
+<p>但是有新bug：Could not install Visual Studio Build Tools</p>
+<p> <strong>决定下载vs了</strong><br> 在官网下载了2017版本的，并且对“桌面开发工具”打了勾安装<br> 但还是没有vs build tool</p>
+<p> 正在找vs build tool 目前参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Zhou_Yulong/article/details/117264550">https://blog.csdn.net/Zhou_Yulong/article/details/117264550</a><br> 其中下载vsbuildtoolfull.exe的，提示一个安装包损坏<br> 试着离线安装一下 百度yp能不能414啊这个限速</p>
+<hr>
+<p> 百度云盘真的够6</p>
+<p>我重新搭建了这个博客框架（之前在旧电脑没搭起来）</p>
+<p>吃了个午饭洗了碗</p>
+<p>还把研究了hexo文章怎么发布，文章怎么添加图片</p>
+<p>它一个1G的压缩包还没下载完</p>
+<p>我真的谢谢你（想刀人的眼神藏不住了</p>
+<p>hexo搭建教程： <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_54796785/article/details/126053172">https://blog.csdn.net/qq_54796785/article/details/126053172</a></p>
+<p>hexo发布文章教程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/PaperJack/article/details/120479912">https://blog.csdn.net/PaperJack/article/details/120479912</a></p>
+<p>hexo文章添加图片教程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/soul7y/article/details/106753778">https://blog.csdn.net/soul7y/article/details/106753778</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/01/30/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89/" data-id="cldifmih80000x8ushl9p6k1a" data-title="Uniswap-v2部署工作记录（一）" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/01/30/hello-world/" class="article-date">
@@ -151,6 +243,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/01/30/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89/">Uniswap-v2部署工作记录（一）</a>
+          </li>
         
           <li>
             <a href="/2023/01/30/hello-world/">Hello World</a>
