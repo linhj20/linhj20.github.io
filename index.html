@@ -71,6 +71,121 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Uniswap-v2部署工作记录（二）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/" class="article-date">
+  <time class="dt-published" datetime="2023-02-06T07:17:06.000Z" itemprop="datePublished">2023-02-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/">Uniswap-v2部署工作记录（二）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="这一周的工作总结"><a href="#这一周的工作总结" class="headerlink" title="这一周的工作总结"></a>这一周的工作总结</h2><p>1、跟着truffle入门教程简单过了一遍</p>
+<p>2、学习Uniswap官网上关于v2的知识</p>
+<p>3、在仍然找不到用truffle搭建Uniswap的教程的情况下，结合truffle入门教程和其他框架搭建Uniswap的教程进行初尝试（目前已经大概摸清楚了ganache和truffle的方法，但可能合约本身有些问题，一直run out of gas）</p>
+<hr>
+<ul>
+<li>truffle入门教程：<a target="_blank" rel="noopener" href="https://learnblockchain.cn/docs/truffle/getting-started/installation.html">https://learnblockchain.cn/docs/truffle/getting-started/installation.html</a> （中文文档<ul>
+<li>整体没有什么困难，毕竟是入门教程</li>
+<li>小教训：<code>truffle unbox</code> 下载之前不能使用 <code>truffle init</code>，不然会有奇怪的错误</li>
+<li><code>truffle develop</code> 似乎能够和 用remix教程中，生成…账户操作等价，如果果真如此，truffle框架使用起来应该会很方便</li>
+</ul>
+</li>
+<li>Uniswap官网：<a target="_blank" rel="noopener" href="https://docs.uniswap.org/">https://docs.uniswap.org/</a><ul>
+<li>需要挂梯子（梯子经常出毛病，总感觉电脑设置不太对）</li>
+<li>全英文，合理运用电脑分屏，实现看文档+查英语单词+做笔记多管齐下</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="truffle搭建Uniswap"><a href="#truffle搭建Uniswap" class="headerlink" title="truffle搭建Uniswap"></a>truffle搭建Uniswap</h3><p>v2-core：<a target="_blank" rel="noopener" href="https://github.com/Uniswap/v2-core">https://github.com/Uniswap/v2-core</a></p>
+<p>v2-periphery：<a target="_blank" rel="noopener" href="https://github.com/Uniswap/v2-periphery">https://github.com/Uniswap/v2-periphery</a></p>
+<p>一些疑惑：migrations下没有文件，可能需要自己补充？不然core和periphery好像各自干各自的，我好像只是推了一个框架上去编译一下</p>
+<h5 id="v2-core"><a href="#v2-core" class="headerlink" title="v2-core"></a>v2-core</h5><ol>
+<li><code>truffle init</code> <img src="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/1.png"></li>
+<li><code>truffle compile</code></li>
+</ol>
+<ul>
+<li>第一次执行的时候报错如下：<img src="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/2.png"></li>
+<li>解决：修改<code>truffle-config.js</code> 中的compilers-&gt;solc-&gt;version为0.5.16</li>
+<li>编译通过<img src="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/3.png"></li>
+</ul>
+<ol start="3">
+<li><code>truffle develop</code></li>
+<li><code>migrate</code>成功了！ <img src="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/4.png"></li>
+</ol>
+<h5 id="v2-periphery：同上，如法炮制"><a href="#v2-periphery：同上，如法炮制" class="headerlink" title="v2-periphery：同上，如法炮制"></a>v2-periphery：同上，如法炮制</h5><ul>
+<li>truffle compile遇到问题： <img src="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/5.png"><ul>
+<li>网上搜了一下，这个文件是同系列的Uniswap下的一个算是公共文件？</li>
+<li>想到的解决方法：单独下载下来相关依赖文件再改路径？（很麻烦）还是查一下import导入中@是什么意思</li>
+<li>查到了：通过npm的目录导入，是使用@<ul>
+<li>附：solidity import的相关知识 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_52708261/article/details/127064930">https://blog.csdn.net/qq_52708261/article/details/127064930</a></li>
+</ul>
+</li>
+<li>想办法搞一个npm目录导入（谢天谢地，看了很多教程，有类似的操作，这个在Uniswap官网的相关教程有，不过官网的教程是搭建一个能够和Uniswap通信的合约）<code>npm i --save @uniswap</code></li>
+<li>解决了！nice！（虽然有warning） <img src="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/6.png"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>我好像大概知道距离真正部署的差距了 </p>
+<p>1、部署前的准备，包括账户，测试币，WETH合约地址和infuraKey等等、</p>
+<p>2、migrate下的脚本</p>
+<p>应该只要找一下别人的migrate下的脚本怎么写，然后生成新账户，获取测试币</p>
+<hr>
+<p>和学长聊了之后，接下来的思路应该是：</p>
+<ol>
+<li>用ganache生成账户之类的东西</li>
+<li>写一下migrate脚本</li>
+</ol>
+<p>记得注意一下核心合约和外围合约的关系（比如后者的参数可能要用到前者的地址这种</p>
+<hr>
+<h5 id="Ganache安装-学习-使用"><a href="#Ganache安装-学习-使用" class="headerlink" title="Ganache安装-学习-使用"></a>Ganache安装-学习-使用</h5><p>参考教程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43725548/article/details/117651078">(32条消息) Win10如何正确安装Ganache可视化客户端_张康佳的博客-CSDN博客_ganache客户端</a>  安装✔</p>
+<hr>
+<h5 id="migrations下脚本编写以及迁移"><a href="#migrations下脚本编写以及迁移" class="headerlink" title="migrations下脚本编写以及迁移"></a>migrations下脚本编写以及迁移</h5><p>找到了一个好东西：[<a target="_blank" rel="noopener" href="https://github.com/Uniswap/v2-core/issues/110">Feature] Truffle Migrations + Typechain · Issue #110 · Uniswap&#x2F;v2-core (github.com)</a></p>
+<p>在里面找到了v2-core的migration的脚本，copy了一份，稍微修改了以后：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">UniswapV2Factory</span> = artifacts.<span class="built_in">require</span>(<span class="string">&quot;UniswapV2Factory&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">async</span> <span class="keyword">function</span> (<span class="params">deployer</span>) &#123;</span><br><span class="line">  deployer.<span class="title function_">deploy</span>(<span class="title class_">UniswapV2Factory</span>, <span class="string">&quot;0xd97Bc11283D3C2452C40F2d8E2a22d4cA3391E3E&quot;</span>); </span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>并且仿照它给v2-periphery写了一份脚本，参数是参考了<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/212397361">手把手教你部署自己的uniswap交易所 - 知乎 (zhihu.com)</a> 中的介绍</p>
+<p>v2-core部署：<img src="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/7.png"></p>
+<p>v2-periphery部署：<img src="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/8.png"></p>
+<hr>
+<p>这里部署了router01，实际应该部署02</p>
+<p>02在编译的时候有警告：<img src="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/9.png"></p>
+<p>遇到了问题：<img src="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/10.png"></p>
+<p>尝试解决：修改了truffle-config,js的gas值</p>
+<p>再次truffle migrate，有：<img src="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/11.png"></p>
+<p>ganache重新开了一块gas limit更高的值，再次尝试：<img src="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/12.png"></p>
+<p>…（未完待续）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/" data-id="cldshe0750000ngus8rv0fv1g" data-title="Uniswap-v2部署工作记录（二）" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-uniswap官网阅读学习" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/02/04/uniswap%E5%AE%98%E7%BD%91%E9%98%85%E8%AF%BB%E5%AD%A6%E4%B9%A0/" class="article-date">
@@ -636,6 +751,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/">Uniswap-v2部署工作记录（二）</a>
+          </li>
         
           <li>
             <a href="/2023/02/04/uniswap%E5%AE%98%E7%BD%91%E9%98%85%E8%AF%BB%E5%AD%A6%E4%B9%A0/">uniswap官网阅读学习</a>
