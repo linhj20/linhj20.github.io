@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>操作系统环境配置 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="跟着实验手册走，有不一样的地方再说。 实验手册链接：第零章：实验环境配置 - rCore-Tutorial-Guide-2023S 文档 (learningos.github.io) 顺利进行到cd qemu-7.0.0，但是执行到.&#x2F;configure --target-list&#x3D;riscv64-softmmu,riscv64-linux-user还是出问题了。  问题描述： Cannot fi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统环境配置">
+<meta property="og:url" content="http://example.com/2023/03/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="跟着实验手册走，有不一样的地方再说。 实验手册链接：第零章：实验环境配置 - rCore-Tutorial-Guide-2023S 文档 (learningos.github.io) 顺利进行到cd qemu-7.0.0，但是执行到.&#x2F;configure --target-list&#x3D;riscv64-softmmu,riscv64-linux-user还是出问题了。  问题描述： Cannot fi">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-03-06T10:34:33.000Z">
+<meta property="article:modified_time" content="2023-03-06T14:14:15.429Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-操作系统环境配置" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/03/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time class="dt-published" datetime="2023-03-06T10:34:33.000Z" itemprop="datePublished">2023-03-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      操作系统环境配置
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>跟着实验手册走，有不一样的地方再说。</p>
+<p>实验手册链接：<a target="_blank" rel="noopener" href="https://learningos.github.io/rCore-Tutorial-Guide-2023S/0setup-devel-env.html">第零章：实验环境配置 - rCore-Tutorial-Guide-2023S 文档 (learningos.github.io)</a></p>
+<p>顺利进行到<code>cd qemu-7.0.0</code>，但是执行到<code>./configure --target-list=riscv64-softmmu,riscv64-linux-user</code>还是出问题了。</p>
+<hr>
+<p>问题描述： Cannot find Ninja</p>
+<p>解决方法： <code>sudo apt-get install ninja-build</code></p>
+<hr>
+<p>看起来跑的很顺利了，就是依赖文件好像缺了很多……好多红色的No啊，看得我有点头大（希望没有影响，至少没有error（双手合十.jpg））</p>
+<p>不知道<code>make -j$(nproc)</code>是什么作用的，编译吗？看起来好多东西，时不时卡一下，吓人</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">changing dir to build for make &quot;&quot;...</span><br><span class="line">make[1]: Entering directory &#x27;/mnt/d/qemu/qemu-7.0.0/build&#x27;</span><br><span class="line">[1/53] Generating QAPI test (include) with a custom command</span><br><span class="line">[2/20] Generating qemu-version.h with a custom command (wrapped by meson to capture output)</span><br><span class="line">make[1]: Leaving directory &#x27;/mnt/d/qemu/qemu-7.0.0/build&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>这个结果让我有点害怕，但是，只要没有error就当没有问题！（疯狂祈祷）</p>
+<p>修改<code>.bashrc</code>文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/mnt/d/qemu/qemu-7.0.0</span><br><span class="line">export PATH=$PATH:/mnt/d/qemu/qemu-7.0.0/riscv64-softmmu</span><br><span class="line">export PATH=$PATH:/mnt/d/qemu/qemu-7.0.0/riscv64-linux-user</span><br><span class="line">export PATH=$PATH:/mnt/d/qemu/qemu-7.0.0/build</span><br></pre></td></tr></table></figure>
+
+
+
+<p>好了！ 不过qemu第一个版本没办法识别，太奇怪了，然后报应就到后头了，，</p>
+<p>ubuntu没法 git clone 笑死了</p>
+<p>总结实验环境配置：终端+Ubuntu结合（笑飞了）（指的是需要用终端git clone，再用Ubuntu执行linux的相关命令行操作。</p>
+<p>心梗的环节就是看到出错了（比如现在）</p>
+<hr>
+<p>问题描述：<code>qemu-system-riscv64 --version</code>没有正确返回，<code>LOG=DEBUG make run</code>出现了问题：<code>make: qemu-system-riscv64: Command not found</code></p>
+<p>解决方法： <code>sudo apt install qemu-system-misc</code>（ubuntu系统提示）（虽然我特别害怕不兼容）（啊啊啊太奇怪了）然后运行<code>LOG=DEBUG make run</code>出错了呜呜呜</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/03/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" data-id="clfgwa26300009susg0869rbt" data-title="操作系统环境配置" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/03/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%EF%BC%9ASoK-Decentralized-Finance-DeFi/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          论文阅读：SoK: Decentralized Finance (DeFi)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/02/07/%E5%BF%83%E6%83%85%E7%B3%9F%E7%B3%95%E7%9A%84%E4%B8%80%E5%A4%A9/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">心情糟糕的一天</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%EF%BC%9ASoK-Decentralized-Finance-DeFi/">论文阅读：SoK: Decentralized Finance (DeFi)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">操作系统环境配置</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/%E5%BF%83%E6%83%85%E7%B3%9F%E7%B3%95%E7%9A%84%E4%B8%80%E5%A4%A9/">心情糟糕的一天</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/06/Uniswap-v2%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/">Uniswap-v2部署工作记录（二）</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/04/uniswap%E5%AE%98%E7%BD%91%E9%98%85%E8%AF%BB%E5%AD%A6%E4%B9%A0/">uniswap官网阅读学习</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
