@@ -14,7 +14,7 @@
 <meta property="og:description" content="由摘要可以知道这篇文章的脉络： 首先，我们概述了DeFi的原始协议。其次，我们根据它们提供的操作类型对DeFi协议进行了分类。然后，我们详细考虑了DeFi协议的技术和经济安全性，特别关注了在DeFi环境中特别出现的问题。最后，我们概述了生态系统中的开放性研究挑战。 接下来进入正文部分 I. DEFI: FINANCE 2.0? ​	DeFi的四种特性 非托管的 无需许可（不需要准入） 公开审计 可">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-03-19T06:57:07.000Z">
-<meta property="article:modified_time" content="2023-03-20T04:10:11.090Z">
+<meta property="article:modified_time" content="2023-03-21T12:48:15.396Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -536,6 +536,89 @@
 <li>However, they also conjecture that other DeFi systems, such as DEXs, may have wider incentive compatibility in similar situations due to the different structure of such systems. 。然而，他们还推测，其他DeFi系统（例如DEXs）在类似情况下可能具有更广泛的激励兼容性，因为这些系统的结构有所不同。</li>
 </ul>
 </li>
+<li><h5 id="D-Market-and-Oracle-Manipulation"><a href="#D-Market-and-Oracle-Manipulation" class="headerlink" title="D. Market and Oracle Manipulation"></a>D. Market and Oracle Manipulation</h5><ul>
+<li><p>作为链外信息的提供者，预言机是DeFi协议的基本组成部分</p>
+</li>
+<li><p>但我们必须区分这两种情况：价格被操控了，但仍能被预言机准确给出&#x2F;预言机本身被操控了</p>
+</li>
+<li><p>市场操控（Market Manipulation:）</p>
+<ul>
+<li>瞬时AMM价格易于被操纵，成本接近于零，因此不应作为价格预言机使用。</li>
+<li>即使我们假设预言机不是瞬时的AMM价格，市场操纵问题仍然存在。</li>
+<li>there is a cost to market manipulation related to maintaining a market imbalance over time </li>
+<li>与单次交易夹心攻击不同的是，上述攻击是不无风险的，如果失败，攻击者可能会遭受重大损失。</li>
+<li>（？Dai的这个例子我没太明白）</li>
+</ul>
+</li>
+<li><p>预言机操控（Oracle Manipulation）</p>
+<ul>
+<li>on-chain DEX oracles inherently can not price off-chain assets and fiat currencies.  基于区块链的去中心化交易所预言机本质上无法定价线下的资产和法定货币。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="VI-OPEN-RESEARCH-CHALLENGES"><a href="#VI-OPEN-RESEARCH-CHALLENGES" class="headerlink" title="VI. OPEN RESEARCH CHALLENGES"></a>VI. OPEN RESEARCH CHALLENGES</h3><ul>
+<li><h5 id="A-Composability-Risks"><a href="#A-Composability-Risks" class="headerlink" title="A. Composability Risks"></a>A. Composability Risks</h5><ul>
+<li>加密资产可以轻易且反复被令牌化，并在类似再质押的方式下在DeFi协议之间交换。</li>
+<li>这提供了构建复杂，互相连接的金融系统的潜力，但是带来了风险</li>
+<li>组合风险的一个例子是使用闪电贷来操纵瞬间AMM，并利用那些使用这些AMM作为价格的协议。</li>
+<li>可组合性风险远远超出了即时AMM操作所引发的负面外部性。</li>
+<li>确保协议组合的安全对于任何协议设计者来说都几乎是不可能的，这是 DeFi 面临的重大挑战。</li>
+</ul>
+</li>
+<li><h5 id="B-Governance"><a href="#B-Governance" class="headerlink" title="B. Governance"></a>B. Governance</h5><ul>
+<li>一个通用的方向是在各种具有 GEV 的系统中建模治理的激励兼容性</li>
+<li>在治理激励的一般设计方面仍存在未解答的问题。例如，如何构建治理激励以奖励良好的投资者</li>
+</ul>
+</li>
+<li><h5 id="C-Oracles"><a href="#C-Oracles" class="headerlink" title="C. Oracles"></a>C. Oracles</h5><ul>
+<li>在许多情况下，Oracle问题也可以直接与治理问题相关，因为通常是治理者负责选择使用的Oracle。</li>
+<li>更一般的挑战在于如何设计Oracle激励措施以维护报告正确价格的激励兼容性。</li>
+</ul>
+</li>
+<li><h5 id="D-Miner-Extractable-Value"><a href="#D-Miner-Extractable-Value" class="headerlink" title="D. Miner Extractable Value"></a>D. Miner Extractable Value</h5><ul>
+<li>虽然有关 MEV 和其提取的研究正在推进中，但是评估 MEV 负面外部性的方法（例如，每个区块中浪费的气体、上涨的气价压力等）以及 MEV 机会的完整范围（the full extent of MEV opportunities？）还很少被探究。<ul>
+<li>对于后者，我们推测矿工如何最优化地提取每个区块中的 MEV 是 NP-hard 的，并且很难近似解。</li>
+</ul>
+</li>
+<li>另一个挑战：设计保护机制以应对<ul>
+<li>高 MEV 激励引发的共识层不稳定风险</li>
+<li>时序劫持攻击，即试图重写最近的交易历史记录</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h5 id="E-Program-Analysis"><a href="#E-Program-Analysis" class="headerlink" title="E. Program Analysis"></a>E. Program Analysis</h5><ul>
+<li>虽然智能合约分析工具不断改进，但智能合约的利用数量和规模没有显示出减少的迹象，反而越来越频繁。</li>
+<li>我们（仍然）认为，改善程序分析能够防止我们所看到的许多漏洞利用。</li>
+<li>当前的程序分析工具主要可分为两类<ul>
+<li>完全自动化工具，检查程序不变量<ul>
+<li>非常容易设置和运行，通常专注于单个合同的属性检查</li>
+<li>尚未发展出智能合约可组合性的理解</li>
+</ul>
+</li>
+<li>半自动化验证工具，检查用户定义的属性<ul>
+<li>通常需要复杂的设置和对软件验证的知识，这限制了它们在资源充足的项目中的使用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>大多数工具对智能合约的语义属性推理很少</li>
+</ul>
+</li>
+<li><h5 id="F-Anonymity-and-Privacy"><a href="#F-Anonymity-and-Privacy" class="headerlink" title="F. Anonymity and Privacy"></a>F. Anonymity and Privacy</h5><ul>
+<li>DeFi协议的匿名性和隐私目前是一个明显研究不足的领域。</li>
+<li>用户的隐私本身具有价值，同时也有助于恶意用户逃避其行为的后果。</li>
+<li>虽然零知识证明和多方计算在最近有所进展，但在DeFi的背景下，这些技术尚未得到广泛应用。其中一个主要的摩擦点是这些技术的巨大计算成本</li>
+<li>减少底层区块链计算成本将是隐私保护技术在DeFi协议中广泛应用的关键。</li>
+</ul>
+</li>
+</ul>
+<h3 id="VII-CONCLUSION"><a href="#VII-CONCLUSION" class="headerlink" title="VII. CONCLUSION"></a>VII. CONCLUSION</h3><p>（开摆，打开百度翻译）</p>
+<ul>
+<li>首先，我们列出了 DeFi 的基本要素，然后根据它们提供的操作类型对 DeFi 协议进行分类。我们通过区分技术和经济安全风险，考察了协议所面临的安全挑战。这样，我们就能将已经在理论上提出和&#x2F;或在实践中出现的攻击系统化地分类，并将其分为两类攻击方式：一类是通过利用区块链技术结构，来产生无风险利润的，另一类是通过操纵协议的激励结构，从而牺牲协议获得利润。最后，我们关注了需要全面了解技术和经济风险的开放性研究挑战。</li>
+<li>尽管DeFi可能有创造无需许可和非托管金融系统的潜力，但DeFi乐观主义者提出的观点，即开放的技术和经济安全挑战仍然存在。至少目前来看，DeFi悲观主义者是站在坚实的基础上的：解决这些挑战以强健且可扩展的方式是研究人员和DeFi从业者的核心挑战。然而，最终，正是承诺和挑战之间的融合 - DeFi乐观主义者和DeFi悲观主义者观点之间的紧张关系 - 使得DeFi成为研究的有价值和令人兴奋的领域。</li>
 </ul>
 
       
